@@ -61,6 +61,40 @@ def create_Tree(num_list, index):
     root.right = create_Tree(num_list, 2 * index + 2)
     return root
 
+##################################################
+# 两种DFS方法
+# 一种是top down，也就是从根节点开始做先序遍历
+# 另一种是bottom up，也就是把一棵树分为root + 两棵子树，先分别做两棵子树之后再合并，类似于分治法
+##################################################
+
+def dfs_top_down(root):
+    result = []
+    pre_order_recursive(root, result)
+    return result
+
+def dfs_bottom_up(root):
+    result = []
+    if root is None:
+        return result
+    left = dfs_bottom_up(root.left)
+    right = dfs_bottom_up(root.right)
+    return [root.val] + left + right
+
+##################################################
+# 两种DFS方法
+# 一种是top down，也就是从根节点开始做先序遍历
+# 另一种是bottom up，也就是把一棵树分为root + 两棵子树，先分别做两棵子树之后再合并，类似于分治法
+##################################################
+
+def bfs(tree):
+    return tree.level_order()
+
+##################################################
+# 先序 + 中序 + 后序 + height
+# 都是要遍历整棵树的
+# 递归 + 不递归
+##################################################
+
 def pre_order_recursive(root, result):
     if(root is None):
         return
@@ -159,8 +193,11 @@ if __name__ == '__main__':
     print(tree.height(1))
     print(tree.pre_order(0))
     print(tree.pre_order(1))
+    print(dfs_top_down(tree.root))
+    print(dfs_bottom_up(tree.root))
     print(tree.in_order(0))
     print(tree.in_order(1))
     print(tree.post_order(0))
     print(tree.post_order(1))
     print(tree.level_order())
+    print(bfs(tree))
